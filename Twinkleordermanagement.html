@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-Myv9Q2cdWghu/ED1dOT/ur2R84EsnIzVYh7RRcnY1cwF2mL3T1X4L3myeYU3R8KnHc6jJdc5yvLq7e2++TKg6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #333;
+        }
+
+        .order-section {
+            margin-bottom: 30px;
+        }
+
+        .order-section h2 {
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .order-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .order-list li {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-actions {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .order-actions button {
+            margin-right: 10px;
+            padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .order-actions button:hover {
+            background-color: #555;
+        }
+
+        .order-actions button.process-refund-btn {
+            background-color: #dc3545;
+        }
+        .order-actions button.process-refund-btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .order-actions button.view-details-btn {
+            background-color: #000055;
+        }
+        .order-actions button.view-details-btn:hover {
+            background-color: #bcbce5;
+        }
+
+        .complaint-section {
+            margin-bottom: 30px;
+        }
+
+        .complaint-section h2 {
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .complaint-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .complaint-list li {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .complaint-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .complaint-actions {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .complaint-actions button {
+            margin-right: 10px;
+            padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .complaint-actions button:hover {
+            background-color: #555;
+        }
+
+        .complaint-actions button.resolve-complaint-btn {
+            background-color: #28a745;
+        }
+        .complaint-actions button.resolve-complaint-btn:hover {
+            background-color: white;
+            color:black;
+        }
+
+        .complaint-actions button.view-complaint-btn {
+            background-color: #000055;
+        }
+        .complaint-actions button.view-complaint-btn:hover {
+            background-color: #bcbce5;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            clear: both;
+            margin-top: 20px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .footer-section {
+            flex: 1 1 300px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .footer-section p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #000;
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        * {
+           box-sizing: border-box;
+           padding-left: 15px;
+           padding-right: 15px;
+           margin: 0;
+        }
+
+        body {
+           font-family: Arial, sans-serif;
+           background-color: #f5f5f5;
+           color: #333;
+        }
+
+        .topnav {
+           overflow: hidden;
+           background-color: white;
+           padding: 10px;
+           display: flex;
+           justify-content: center; /* Center align the items */
+           align-items: center;
+        }
+
+        .topnav ul {
+           list-style-type: none;
+           margin: 0;
+           padding: 0;
+           overflow: hidden;
+           display: flex;
+        }
+
+        .topnav li {
+           margin: 0 10px; /* Adjust margin for spacing */
+        }
+
+        .topnav a {
+           display: block;
+           color: black;
+           text-align: center;
+           padding: 14px 16px;
+           text-decoration: none;
+        }
+
+        .topnav a:hover {
+           background-color: #CCCCFF;
+           color: white;
+        }
+
+        .login-link {
+           float: right;
+           margin-right: 20px;
+        }
+
+
+        .nav-search-bar {
+           display: none;
+           position: absolute;
+           top: 60px;
+           right: 20px;
+           background-color: #fff;
+           border: 1px solid #ccc;
+           padding: 10px;
+           z-index: 999;
+        }
+
+        .nav-search-bar.active {
+           display: block;
+        }
+
+        .nav-search-bar form {
+           position: relative;
+        }
+
+        .nav-search-bar input[type="text"] {
+           width: 200px;
+           padding: 8px;
+           border: none;
+           border-bottom: 1px solid #ccc;
+           outline: none;
+           font-size: 14px;
+        }
+
+        .nav-search-bar span {
+           position: absolute;
+           right: 10px;
+           top: 50%;
+           transform: translateY(-50%);
+           cursor: pointer;
+        }
+
+        /* Adjusting the search icon */
+        #quik-search-btn {
+           background-color: transparent; /* Transparent background */
+           border: none;
+           cursor: pointer;
+           font-size: 16px;
+           color: black;
+           padding: 5px 10px; /* Example padding */
+        }
+
+        .catalog-menu {
+           display: none;
+           position: absolute;
+           background-color: #f9f9f9;
+           box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+           z-index: 1;
+        }
+
+        .catalog-menu.active {
+           display: block;
+        }
+
+        .catalog-menu ul {
+           list-style-type: none;
+           padding: 0;
+        }
+
+        .catalog-menu ul li {
+           padding: 10px 15px;
+        }
+
+        .catalog-menu ul li a {
+           text-decoration: none;
+           color: black;
+        }
+
+        .catalog-menu ul li a:hover {
+           background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+  <body>
+    <body style="background-color: #f5f5f5; color: black;">
+
+      <div class="topnav">
+          <ul>
+              <li><a href="index.html">Dashboard</a></li>
+              <li><a href="Twinkleanalytics.html">Analytics</a></li>
+              <li><a href="Twinkleproductmanagement.html">Product Mgt.</a></li>
+              <li><a href="Twinkleordermanagement.html">Order Mgt.</a></li>
+              <li><a href="Twinklereviewmod.html">Reviews</a></li>
+              <li><a href="Twinklepromotionsmgt.html">Promotions</a></li>
+          </ul>
+          <div class="login-link">
+              <a href="userprofileadmin.html">
+                  <i class="fas fa-user-alt"></i>
+              </a>
+          </div>
+          <button id="quik-search-btn" type="button"><i class="fas fa-search"></i></button>
+       </div>
+
+       <!-- Search Box -->
+       <div class="nav-search-bar" id="search-bar">
+          <form id="search-form">
+             <input name="search" value="" type="text" class="form-control" placeholder="Type to search">
+             <span id="search-remove"><i class="fas fa-times"></i></span>
+          </form>
+       </div>
+      </div>
+
+
+
+
+<br>
+        <section class="order-section">
+            <h3>Manage Orders</h3>
+            <ul class="order-list">
+                <li>
+                    <div class="order-details">
+                        <div>
+                            <h3>Order #12345</h3>
+                            <p>Customer: Marwan Ahmed</p>
+                            <p>Total Amount: EGP 350</p>
+                        </div>
+                        <div class="order-actions">
+                            <button class="view-details-btn">View Details</button>
+                            <button class="process-refund-btn">Process Refund</button>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </section>
+
+        <!-- Complaint Section -->
+        <section class="complaint-section">
+            <h3>Customer Complaints</h3>
+            <ul class="complaint-list">
+                <li>
+                    <div class="complaint-details">
+                        <div>
+                            <h3>Complaint #54321</h3>
+                            <p>Customer: Farah Abduallah</p>
+                            <p>Issue: The order has not come yet</p>
+                        </div>
+                        <div class="complaint-actions">
+                            <button class="view-complaint-btn">View Complaint</button>
+                            <button class="resolve-complaint-btn">Resolve Complaint</button>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </section>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Explore Our Collection</h3>
+                <p>Discover the latest trends and timeless classics in our curated collection of apparel and accessories.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Care</h3>
+                <p>Have questions? Contact our customer service team for assistance with orders, sizing, and more.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Twinkle Twinkle. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+          const searchBar = document.getElementById('search-bar');
+          const searchBtn = document.getElementById('quik-search-btn');
+          const searchRemove = document.getElementById('search-remove');
+          const catalogLink = document.getElementById('catalog-link');
+          const catalogMenu = document.getElementById('catalog-menu');
+
+          // Show search bar on search icon click
+          searchBtn.addEventListener('click', function(event) {
+             event.stopPropagation(); // Prevent the event from bubbling up to document
+             searchBar.classList.toggle('active');
+          });
+
+          // Toggle catalog menu on shop link click
+          catalogLink.addEventListener('click', function(event) {
+             event.preventDefault(); // Prevent the default action of the link
+             catalogMenu.classList.toggle('active');
+          });
+
+          // Close catalog menu when clicking outside of it
+          document.addEventListener('click', function(event) {
+             if (!catalogLink.contains(event.target) && !catalogMenu.contains(event.target)) {
+                catalogMenu.classList.remove('active');
+             }
+          });
+
+          // Hide search bar on close icon click
+          searchRemove.addEventListener('click', function(event) {
+             event.stopPropagation(); // Prevent the event from bubbling up to document
+             searchBar.classList.remove('active');
+          });
+       });
+    </script>
+</body>
+</html>

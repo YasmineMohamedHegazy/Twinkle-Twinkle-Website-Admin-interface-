@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotions and Discounts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-Myv9Q2cdWghu/ED1dOT/ur2R84EsnIzVYh7RRcnY1cwF2mL3T1X4L3myeYU3R8KnHc6jJdc5yvLq7e2++TKg6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Basic styling */
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    main {
+        margin-top: 20px;
+    }
+
+    section {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    form {
+        max-width: 400px;
+        margin-bottom: 20px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button.edit-button {
+
+        background-color: #000055;
+        color: #fff;
+
+    }
+
+    button.edit-button:hover {
+        background-color: #bcbce5;
+    }
+
+
+    button.delete {
+
+        background-color: #C70039;
+        color: #fff;
+
+    }
+
+    button.delete:hover {
+        background-color: white;
+        color:black;
+    }
+
+    .topnav {
+        overflow: hidden;
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .topnav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+    }
+
+    .topnav li {
+        margin: 0 10px; /* Adjust margin for spacing */
+    }
+
+    .topnav a {
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .topnav a:hover {
+        background-color: #CCCCFF;
+        color: white;
+    }
+
+    .login-link {
+        float: right;
+        margin-right: 20px;
+    }
+
+    .catalog-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .catalog-menu.active {
+        display: block;
+    }
+
+    .catalog-menu ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .catalog-menu ul li {
+        padding: 10px 15px;
+    }
+
+    .catalog-menu ul li a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .catalog-menu ul li a:hover {
+        background-color: #f1f1f1;
+    }
+    .footer {
+        background-color: #f5f5f5;
+        padding: 20px;
+        text-align: center;
+        clear: both;
+        margin-top: 20px;
+    }
+
+    .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .footer-section {
+        flex: 1 1 300px;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .footer-section h3 {
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .footer-section p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .footer-section ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer-section a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .footer-section a:hover {
+        color: #000;
+    }
+
+    .footer-bottom {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #f2f2f2;
+    }
+
+    table tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    button {
+        padding: 8px 12px;
+        margin-right: 5px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    .nav-search-bar {
+       display: none;
+       position: absolute;
+       top: 60px;
+       right: 20px;
+       background-color: #fff;
+       border: 1px solid #ccc;
+       padding: 10px;
+       z-index: 999;
+    }
+
+    .nav-search-bar.active {
+       display: block;
+    }
+
+    .nav-search-bar form {
+       position: relative;
+    }
+
+    .nav-search-bar input[type="text"] {
+       width: 200px;
+       padding: 8px;
+       border: none;
+       border-bottom: 1px solid #ccc;
+       outline: none;
+       font-size: 14px;
+    }
+
+    .nav-search-bar span {
+       position: absolute;
+       right: 10px;
+       top: 50%;
+       transform: translateY(-50%);
+       cursor: pointer;
+    }
+
+    /* Adjusting the search icon */
+    #quik-search-btn {
+       background-color: transparent; /* Transparent background */
+       border: none;
+       cursor: pointer;
+       font-size: 16px;
+       color: black;
+       padding: 5px 10px; /* Example padding */
+    }
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1></h1>
+    </header>
+
+    <div class="topnav">
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="Twinkleanalytics.html">Analytics</a></li>
+            <li><a href="Twinkleproductmanagement.html">Product Mgt.</a></li>
+            <li><a href="Twinkleordermanagement.html">Order Mgt.</a></li>
+            <li><a href="Twinklereviewmod.html">Reviews</a></li>
+            <li><a href="Twinklepromotionsmgt.html">Promotions</a></li>
+        </ul>
+        <div class="login-link">
+            <a href="userprofileadmin.html">
+                <i class="fas fa-user-alt"></i>
+            </a>
+        </div>
+        <button id="quik-search-btn" type="button"><i class="fas fa-search"></i></button>
+     </div>
+
+     <!-- Search Box -->
+     <div class="nav-search-bar" id="search-bar">
+        <form id="search-form">
+           <input name="search" value="" type="text" class="form-control" placeholder="Type to search">
+           <span id="search-remove"><i class="fas fa-times"></i></span>
+        </form>
+     </div>
+    </div>
+
+
+        <section class="create-promotion">
+            <h3>Create New Promotion</h3>
+            <form action="#" method="POST">
+                <label for="promotion-name">Promotion Name:</label>
+                <input type="text" id="promotion-name" name="promotion-name" required>
+                <label for="product-name">Product Name:</label>
+                <input type="text" id="product-name" name="product-name" required>
+                <label for="product-name">Product Category:</label>
+                <input type="text" id="product-category" name="product-category" required>
+
+
+                <label for="promotion-code">Promotion Code:</label>
+                <input type="text" id="promotion-code" name="promotion-code" required>
+
+                <label for="discount-amount">Discount Amount:</label>
+                <input type="number" id="discount-amount" name="discount-amount" required>
+
+                  <button class="edit-button">Create Promotion</button>
+            </form>
+        </section>
+
+        <section class="manage-promotions">
+            <h2>Manage Promotions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Promotion Name</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Promotion Code</th>
+                        <th>Discount Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Promo 1</td>
+                        <td>White shirt</td>
+                        <td>Men</td>
+                        <td>CODE123</td>
+                        <td>10%</td>
+                        <td>
+                          <button class="edit-button">Edit</button>
+                          <button class="delete">Delete</button>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Summer season offer</td>
+                        <td>Beige blouse</td>
+                        <td>Women</td>
+                        <td>CODETwinkle</td>
+                        <td>20%</td>
+                        <td>
+                              <button class="edit-button">Edit</button>
+                              <button class="delete">Delete</button>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+        <section class="performance-tracking">
+            <h2>Promotion Performance Tracking</h2>
+            <div class="report-content">
+
+                <p>Total Redemptions: 29</p>
+                <p>Total Revenue Impact: 30,000 EGP</p>
+                <p>Most Used Promotion: Promo 1</p>
+            </div>
+        </section>
+
+
+    <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Explore Our Collection</h3>
+                    <p>Discover the latest trends and timeless classics in our curated collection of apparel and accessories.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Care</h3>
+                    <p>Have questions? Contact our customer service team for assistance with orders, sizing, and more.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Twinkle Twinkle. All Rights Reserved.</p>
+            </div>
+        </footer>
+        <script>
+           document.addEventListener('DOMContentLoaded', function() {
+              const searchBar = document.getElementById('search-bar');
+              const searchBtn = document.getElementById('quik-search-btn');
+              const searchRemove = document.getElementById('search-remove');
+              const catalogLink = document.getElementById('catalog-link');
+              const catalogMenu = document.getElementById('catalog-menu');
+
+              // Show search bar on search icon click
+              searchBtn.addEventListener('click', function(event) {
+                 event.stopPropagation(); // Prevent the event from bubbling up to document
+                 searchBar.classList.toggle('active');
+              });
+
+              // Toggle catalog menu on shop link click
+              catalogLink.addEventListener('click', function(event) {
+                 event.preventDefault(); // Prevent the default action of the link
+                 catalogMenu.classList.toggle('active');
+              });
+
+              // Close catalog menu when clicking outside of it
+              document.addEventListener('click', function(event) {
+                 if (!catalogLink.contains(event.target) && !catalogMenu.contains(event.target)) {
+                    catalogMenu.classList.remove('active');
+                 }
+              });
+
+              // Hide search bar on close icon click
+              searchRemove.addEventListener('click', function(event) {
+                 event.stopPropagation(); // Prevent the event from bubbling up to document
+                 searchBar.classList.remove('active');
+              });
+           });
+        </script>
+</body>
+</html>
